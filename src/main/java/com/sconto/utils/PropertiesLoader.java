@@ -1,5 +1,6 @@
 package com.sconto.utils;
 
+import java.io.IOException;
 import java.util.Properties;
 
 public class PropertiesLoader {
@@ -11,7 +12,16 @@ public class PropertiesLoader {
     public static String loadProperty(String name){
         Properties properties = new Properties();
 
-        properties.load(PropertiesLoader.class.getResourceAsStream(PROF_FILE));
+        try {
+            properties.load(PropertiesLoader.class.getResourceAsStream(PROF_FILE));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        String value  = "";
+        if(name !=null){
+            value = properties.getProperty(name);
+        }
+        return value;
     }
 }
